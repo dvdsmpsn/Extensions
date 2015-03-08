@@ -157,8 +157,6 @@ do
 
     normalizeCSV "${file}" | while read line
     do
-		echo ${line}
-		
         login=`echo ${line}  | awk -F',' '{ print $1; }' -`
         password=`echo ${line}  | awk -F',' '{ print $2; }' -`
         email=`echo ${line}     | awk -F',' '{ print $3; }' -`
