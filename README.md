@@ -9,7 +9,7 @@ JC_UserImport.sh - a bash script that allows you to automatically and quickly im
 
 The following scripts are designed to be run from any Linux host:
 
-JC_CSVUserImport.sh - a bash script that imports JumpCloud system user accounts from a CSV file. It accepts a file containing either login and email, or just email (in which case the login will be taken from the email user name).
+JC_CSVUserImport.sh - a bash script that imports JumpCloud system user accounts from a CSV file. It accepts a file containing username, password, email, firstname and lastname.
 
 JC_CommandTriggerExample.sh - an example script that shows how to call a JumpCloud Command via a webhook
 
