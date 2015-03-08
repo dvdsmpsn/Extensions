@@ -4,13 +4,11 @@
 #
 # JC_CSVUserImport.sh - imports users from a CSV file into JumpCloud(tm)
 #
-# This script accepts a .csv file as an argument, in either of the following forms:
+# This script accepts a .csv file as an argument, in the following forms:
 #
-# 1. login,email
-# 2. email
+# username,password,email,firstname,lastname
 #
-# and loads them as system users into JumpCloud. If #2, the user name portion of the
-# email is used to create the account. As is normal for JumpCloud, any newly-added
+# and loads them as system users into JumpCloud. As is normal for JumpCloud, any newly-added
 # users will receive an email prompting them to set up their password, SSH public
 # key, and Google Authenticator.
 #
@@ -36,6 +34,8 @@
 # menu in the upper right corner of the screen, select "API Settings".
 #
 jumpCloudAPIKey="<CHANGE_TO_YOUR_JUMPCLOUD_API_KEY>"
+
+defaultTag="<CHANGE_TO_THE_DEFAULT_TAGS_YOU_WANT_TO_USE"
 
 ######
 # --------------------------- END USER CUSTOMIZATION SECTION  ---------------------------
@@ -82,10 +82,20 @@ findAccountInJumpCloud() {
 
 addAccountToJumpCloud() {
     login="${1}"
-    email="${2}"
+	password="${2}"
+    email="${3}"
+	firstname="${4}"
+	lastname="${5}"
 
     result=`curl --silent \
-        -d "{\"email\" : \"${email}\", \"username\" : \"${login}\" }" \
+        -d "{  \
+			   \"username\"  : \"${login}\",      \
+			   \"password\"  : \"${password}\",      \
+			   \"email\"     : \"${email}\",         \
+			   \"firstname\" : \"${firstname}\",     \
+			   \"lastname\"  : \"${lastname}\",      \
+			   \"tags\"      : [ \"${defaultTag}\" ] \
+		    }" \
         -X 'POST' \
         -H 'Content-Type: application/json' \
         -H 'Accept: application/json' \
@@ -103,7 +113,10 @@ normalizeCSV() {
 
     cat ${files} | tr "\r" "\n" | gawk -F',' '{
         login="";
+		password="";
         email="";
+		firstname="";
+		lastname="";
 
         # Is this a heading line?
         if (NR == 1 && NF == 2 && $2 !~ /@/) {
@@ -115,19 +128,13 @@ normalizeCSV() {
         # Remove any double-quotes
         gsub(/"/, "");
 
-        if (NF == 1) {
-            len=split($0, parts, /@/);
+		login=$1;
+		password=$2;
+		email=$3;
+		firstname=$4;
+		lastname=$5;
 
-            if (len == 2) {
-                login=parts[1];
-                email=$0;
-            }
-        } else if (NF == 2) {
-            login=$1;
-            email=$2;
-        }
-
-        printf("%s,%s\n", login, email);
+        printf("%s,%s,%s,%s,%s\n", login, password, email, firstname, lastname);
     }' -
 }
 
@@ -150,8 +157,13 @@ do
 
     normalizeCSV "${file}" | while read line
     do
-        login=`echo ${line} | awk -F',' '{ print $1; }' -`
-        email=`echo ${line} | awk -F',' '{ print $2; }' -`
+		echo ${line}
+		
+        login=`echo ${line}  | awk -F',' '{ print $1; }' -`
+        password=`echo ${line}  | awk -F',' '{ print $2; }' -`
+        email=`echo ${line}     | awk -F',' '{ print $3; }' -`
+        firstname=`echo ${line} | awk -F',' '{ print $4; }' -`
+        lastname=`echo ${line}  | awk -F',' '{ print $5; }' -`
 
         #
         # Account already in JumpCloud?
@@ -160,12 +172,12 @@ do
         then
             echo "${login}: already exists in JumpCloud"
         else
-            echo -n "Adding ${login} (${email}): "
+            echo -n "Adding ${firstname} ${lastname} / ${login} (${email}) : "
 
             #
             # Nope, add it
             #
-            result=`addAccountToJumpCloud "${login}" "${email}"`
+            result=`addAccountToJumpCloud "${login}" "${password}" "${email}" "${firstname}" "${lastname}"`
 
             if [ ! -z "${result}" ]
             then
