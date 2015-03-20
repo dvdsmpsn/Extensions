@@ -1,18 +1,31 @@
 Extensions
 ==========
 
-Contains function and feature extensions for JumpCloud, including automated user import, CSV import, and others.
 
-The following scripts are designed to be run via JumpCloud, to make it easy to distribute them across servers, and get results into a central location:
+Import a bunch of users (personas) int JumpCloud.
 
-JC_UserImport.sh - a bash script that allows you to automatically and quickly import all your existing Linux users into JumpCloud, eliminate user accounts that should no longer exist on servers, and get all your user accounts into a central repository for easy management going forward.
+This script has an example CSV file which will import and activate users within JumpCloud. It alsoadds a default tag to every user.
 
-The following scripts are designed to be run from any Linux host:
+Usage:
 
-JC_CSVUserImport.sh - a bash script that imports JumpCloud system user accounts from a CSV file. It accepts a file containing username, password, email, firstname and lastname.
+  JC_CSVUserImport.sh example-users.csv
 
-JC_CommandTriggerExample.sh - an example script that shows how to call a JumpCloud Command via a webhook
+Before you use this, replace `<CHANGE_TO_YOUR_JUMPCLOUD_API_KEY>` in this line:
 
-JC_RunCommandExample.sh - an example script that show how to call a JumpCloud Command via the normal REST API, to allow Command Runner users to run commands via the API
+  jumpCloudAPIKey="<CHANGE_TO_YOUR_JUMPCLOUD_API_KEY>"
 
-JC_CheckAgentPorts.sh - a script that verifies outbound connectivity from a Linux host for proper agent installation and operation
+Before you use this, replace `<CHANGE_TO_THE_DEFAULT_TAGS_YOU_WANT_TO_USE>` in this line:
+
+  defaultTag="<CHANGE_TO_THE_DEFAULT_TAGS_YOU_WANT_TO_USE>"
+
+The script supports CSV files in the following format:
+
+  username,password,email,firstname,surname
+
+e.g.
+
+  a9b6f,jumpcloud,eros.turpis@quisaccumsan.ca,Dacey,Lester
+  a4e2b,jumpcloud,egestas.urna@pedeetrisus.co.uk,Aretha,Henry
+  aff89,jumpcloud,vestibulum.Mauris@neque.ca,Yoshi,Ball
+  
+Run the script on the command line on your OS X, or Linux system.
