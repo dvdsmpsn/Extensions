@@ -21,6 +21,8 @@
 # Author: James D. Brown (james@jumpcloud.com)
 # Created: Fri, Apr 11, 2014
 #
+# Updated: David Simpson (david@davidsimpson.me) / March 2015
+#
 # Copyright (c) 2014 JumpCloud, Inc.
 #
 #########################################################################################
