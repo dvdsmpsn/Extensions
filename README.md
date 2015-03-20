@@ -2,7 +2,7 @@ Extensions
 ==========
 
 
-Import a bunch of users (personas) int JumpCloud.
+Import a bunch of users (personas) into [JumpCloud](http://jumpcloud.com/).
 
 This script has an example CSV file which will import and activate users within JumpCloud. It alsoadds a default tag to every user.
 
