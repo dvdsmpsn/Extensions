@@ -1,6 +1,6 @@
-Extensions
-==========
+# Extensions
 
+## Introduction
 
 Import a bunch of users (personas) into [JumpCloud](http://jumpcloud.com/).
 
@@ -12,17 +12,21 @@ Usage:
   JC_CSVUserImport.sh example-users.csv
 ```
 
-Before you use this, replace `<CHANGE_TO_YOUR_JUMPCLOUD_API_KEY>` in this line:
+## Before you begin
+
+Replace `<CHANGE_TO_YOUR_JUMPCLOUD_API_KEY>` in this line:
 
 ```
   jumpCloudAPIKey="<CHANGE_TO_YOUR_JUMPCLOUD_API_KEY>"
 ```
 
-Before you use this, replace `<CHANGE_TO_THE_DEFAULT_TAGS_YOU_WANT_TO_USE>` in this line:
+Replace `<CHANGE_TO_THE_DEFAULT_TAGS_YOU_WANT_TO_USE>` in this line:
 
 ```
   defaultTag="<CHANGE_TO_THE_DEFAULT_TAGS_YOU_WANT_TO_USE>"
 ```
+
+## CSV format
 
 The script supports CSV files in the following format:
 
@@ -37,5 +41,7 @@ e.g.
   a4e2b,jumpcloud,egestas.urna@pedeetrisus.co.uk,Aretha,Henry
   aff89,jumpcloud,vestibulum.Mauris@neque.ca,Yoshi,Ball
 ```
+
+## And finally...
 
 Run the script on the command line on your OS X, or Linux system.
