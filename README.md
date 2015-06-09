@@ -6,6 +6,8 @@ Import a bunch of users (personas) into [JumpCloud](http://jumpcloud.com/).
 
 This script has an example CSV file which will import and activate users within JumpCloud. It also adds a default tag to every user.
 
+Adding the password seems to activate the users. Replace this field with something else for security reasons.
+
 Usage:
 
 ```
