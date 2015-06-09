@@ -47,3 +47,5 @@ e.g.
 ## And finally...
 
 Run the script on the command line on your OS X, or Linux system.
+
+-- Thanks, David xxx
